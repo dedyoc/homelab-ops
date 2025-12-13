@@ -15,8 +15,8 @@ spec:
       values: |
         oauth:
           secretName: operator-oauth
-          clientIdKey: kXpDXwrt5z11CNTRL 
-          clientSecretKey: tskey-client-kXpDXwrt5z11CNTRL-ZUNs1sSaa6hKGen2xzYq5hNtdpHCJkJ1
+          clientIdKey: client-id
+          clientSecretKey: client-secret
         # We enforce the operator to watch all namespaces so we can use it everywhere
         operatorConfig:
           hostname: "k8s-operator"
