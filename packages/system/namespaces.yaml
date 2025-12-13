@@ -1,0 +1,42 @@
+---
+# 1. critical utils (dns, auth, proxy)
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: net-utils
+  labels:
+    role: critical-infrastructure
+
+---
+# 2. personal services (24/7)
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: home-ops
+  labels:
+    role: personal-services
+
+---
+# 3. data engineering (ephemeral/burst)
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: data-ops
+  labels:
+    role: experimental
+
+---
+# SAFETY GUARDRAIL: quota for data-ops
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: data-ops-safety-cap
+  namespace: data-ops
+spec:
+  hard:
+    # cap this namespace at 16GB RAM (50% total)
+    requests.memory: 12Gi
+    limits.memory: 16Gi
+    # cap CPU usage so system services don't starve
+    limits.cpu: "6"
+
