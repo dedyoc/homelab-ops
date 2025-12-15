@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: it-tools
+  namespace: net-utils
+  annotations:
+    # tell Tailscale to expose to Tailnet
+    tailscale.com/tags: "tag:k8s"
+spec:
+  ingressClassName: tailscale
+  tls:
+    - hosts:
+        - it-tools
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: it-tools
+                port:
+                  number: 80
