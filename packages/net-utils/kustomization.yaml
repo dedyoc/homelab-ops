@@ -3,5 +3,5 @@ kind: Kustomization
 resources:
   - it-tools/
   # planned apps:
-  # - adguard/
+  - adguard/
   # - vaultwarden/
