@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adguard
+  namespace: net-utils
+  labels:
+    app: adguard
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate # Important for PVCs (avoids conflict during updates)
+  selector:
+    matchLabels:
+      app: adguard
+  template:
+    metadata:
+      labels:
+        app: adguard
+    spec:
+      containers:
+        - name: adguard
+          image: adguard/adguardhome:latest
+          ports:
+            - containerPort: 3000 # initial setup UI
+              name: http-setup
+            - containerPort: 80   # dashboard
+              name: http-dash
+            - containerPort: 53  
+              protocol: UDP
+              name: dns-udp
+            - containerPort: 53  
+              protocol: TCP
+              name: dns-tcp
+          volumeMounts:
+            - name: data-vol
+              mountPath: /opt/adguardhome/work
+            - name: config-vol
+              mountPath: /opt/adguardhome/conf
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "50m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 30
+            periodSeconds: 10
+      volumes:
+        - name: data-vol
+          persistentVolumeClaim:
+            claimName: adguard-data
+        - name: config-vol
+          persistentVolumeClaim:
+            claimName: adguard-data
