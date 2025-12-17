@@ -34,8 +34,10 @@ spec:
           volumeMounts:
             - name: data-vol
               mountPath: /opt/adguardhome/work
+              subPath: work
             - name: config-vol
               mountPath: /opt/adguardhome/conf
+              subPath: conf
           resources:
             requests:
               memory: "128Mi"
