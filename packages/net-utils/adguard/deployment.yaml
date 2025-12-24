@@ -53,8 +53,4 @@ spec:
             periodSeconds: 10
       volumes:
         - name: data-vol
-          persistentVolumeClaim:
-            claimName: adguard-data
-        - name: config-vol
-          persistentVolumeClaim:
-            claimName: adguard-data
+          mountPath: /test-mount
