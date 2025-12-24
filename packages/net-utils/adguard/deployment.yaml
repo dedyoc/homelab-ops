@@ -33,11 +33,7 @@ spec:
               name: dns-tcp
           volumeMounts:
             - name: data-vol
-              mountPath: /opt/adguardhome/work
-              subPath: work
-            - name: config-vol
-              mountPath: /opt/adguardhome/conf
-              subPath: conf
+              mountPath: /test-mount
           resources:
             requests:
               memory: "128Mi"
@@ -53,4 +49,8 @@ spec:
             periodSeconds: 10
       volumes:
         - name: data-vol
-          mountPath: /test-mount
+          persistentVolumeClaim:
+            claimName: adguard-data
+        - name: config-vol
+          persistentVolumeClaim:
+            claimName: adguard-data
