@@ -49,6 +49,7 @@ spec:
               port: 3000
             initialDelaySeconds: 30
             periodSeconds: 10
+      revisionHistoryLimit: 2
       volumes:
         - name: data-vol
           persistentVolumeClaim:
