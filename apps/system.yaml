@@ -11,6 +11,9 @@ spec:
     repoURL: https://github.com/dedyoc/homelab-ops.git
     targetRevision: HEAD
     path: packages/system
+    kustomize:
+      resources:
+        - ../packages/system/scratch-storage.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: default 
