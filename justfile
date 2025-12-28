@@ -61,3 +61,9 @@ net-status:
     @echo ""
     @echo "--- Ingress Routes ---"
     kubectl get ingress -A
+
+# Fix for zombie proxies after network outage
+fix-proxies:
+    @echo "Recycling proxy pods..."
+    kubectl delete pod -n tailscale -l app.kubernetes.io/name=tailscale
+    @echo "Proxies will auto-regenerate with fresh routes."

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: coredns-custom
+  namespace: kube-system
+data:
+  server.override: |
+    forward . <ADGUARD_CLUSTER_IP> 1.1.1.1 {
+      force_tcp
+      policy sequential
+    }
