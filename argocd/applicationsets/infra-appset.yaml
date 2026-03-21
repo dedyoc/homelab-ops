@@ -6,7 +6,7 @@ metadata:
 spec:
   generators:
     - git:
-        repoURL: https://github.com/homelab-org/homelab-ops.git 
+        repoURL: https://github.com/dedyoc/homelab-ops.git 
         revision: main
         directories:
           - path: infrastructure/*
@@ -16,7 +16,7 @@ spec:
     spec:
       project: default
       source:
-        repoURL: https://github.com/homelab-org/homelab-ops.git
+        repoURL: https://github.com/dedyoc/homelab-ops.git
         targetRevision: main
         path: '{{path}}'
       destination:
