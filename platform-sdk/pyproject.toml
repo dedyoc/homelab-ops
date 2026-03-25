@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "homelab-sdk"
+version = "0.1.0"
+description = "central platform engineering sdk for k3s compute constraints"
+dependencies = [
+    "dagster",
+    "dagster-k8s"
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
