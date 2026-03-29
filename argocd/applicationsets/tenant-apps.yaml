@@ -1,0 +1,19 @@
+# master app-of-apps pattern. monitors the applications directory for tenant bindings.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tenant-workloads
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/dedyoc/homelab-ops.git
+    targetRevision: main
+    path: argocd/applications # points to the directory containing bluesky-trends.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd # child applications must be deployed into the argocd namespace
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
