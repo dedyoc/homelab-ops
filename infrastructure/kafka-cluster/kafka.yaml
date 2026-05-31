@@ -1,0 +1,58 @@
+# dual-role kraft node pool (controller and broker combined)
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaNodePool
+metadata:
+  name: dual-role
+  namespace: data-engineering
+  labels:
+    strimzi.io/cluster: homelab-broker
+spec:
+  replicas: 1
+  roles:
+    - controller
+    - broker
+  storage:
+    # as this is just a prototype, we'll use ephemeral 
+    type: ephemeral
+  resources:
+    requests:
+      cpu: "1"
+      memory: 4Gi
+    limits:
+      cpu: "2"
+      memory: 4Gi
+  jvmOptions:
+    "-Xms": 3g
+    "-Xmx": 3g
+    "-XX":
+      UseG1GC: "true"
+---
+# core kafka cluster definition referencing the node pool
+apiVersion: kafka.strimzi.io/v1beta2
+kind: Kafka
+metadata:
+  name: homelab-broker
+  namespace: data-engineering
+  annotations:
+    strimzi.io/node-pools: enabled
+    strimzi.io/kraft: enabled
+spec:
+  kafka:
+    version: 3.7.0
+    metadataVersion: 3.7-IV4
+    listeners:
+      - name: plain
+        port: 9092
+        type: internal
+        tls: false
+    config:
+      offsets.topic.replication.factor: 1
+      transaction.state.log.replication.factor: 1
+      transaction.state.log.min.isr: 1
+      default.replication.factor: 1
+      min.insync.replicas: 1
+      log.retention.hours: 2
+      log.retention.bytes: 1073741824 # 1gb per partition limit
+  entityOperator:
+    topicOperator: {}
+    userOperator: {}
