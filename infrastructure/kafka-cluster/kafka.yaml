@@ -1,5 +1,5 @@
 # dual-role kraft node pool (controller and broker combined)
-apiVersion: kafka.strimzi.io/v1beta2
+apiVersion: kafka.strimzi.io/v1
 kind: KafkaNodePool
 metadata:
   name: dual-role
@@ -28,7 +28,7 @@ spec:
       UseG1GC: "true"
 ---
 # core kafka cluster definition referencing the node pool
-apiVersion: kafka.strimzi.io/v1beta2
+apiVersion: kafka.strimzi.io/v1
 kind: Kafka
 metadata:
   name: homelab-broker
@@ -38,8 +38,8 @@ metadata:
     strimzi.io/kraft: enabled
 spec:
   kafka:
-    version: 3.7.0
-    metadataVersion: 3.7-IV4
+    version: 3.8.0
+    metadataVersion: 3.8-IV4
     listeners:
       - name: plain
         port: 9092
