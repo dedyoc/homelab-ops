@@ -3,7 +3,7 @@ apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaNodePool
 metadata:
   name: dual-role
-  namespace: data-engineering
+  namespace: kafka-cluster
   labels:
     strimzi.io/cluster: homelab-broker
 spec:
@@ -32,7 +32,7 @@ apiVersion: kafka.strimzi.io/v1beta2
 kind: Kafka
 metadata:
   name: homelab-broker
-  namespace: data-engineering
+  namespace: kafka-cluster
   annotations:
     strimzi.io/node-pools: enabled
     strimzi.io/kraft: enabled
