@@ -9,3 +9,6 @@ helmCharts:
     releaseName: strimzi-operator
     namespace: strimzi-operator
     includeCRDs: true
+    # watch for strimzi crds across all namespaces
+    valuesInline:
+      watchAnyNamespace: true
