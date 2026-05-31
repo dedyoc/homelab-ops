@@ -1,0 +1,14 @@
+apiVersion: kafka.strimzi.io/v1
+kind: KafkaTopic
+metadata:
+  name: bluesky-posts
+  namespace: kafka-cluster
+  labels:
+    strimzi.io/cluster: homelab-broker
+spec:
+  partitions: 3
+  replicas: 1
+  config:
+    retention.ms: 3600000 # 1 hour retention for prototyping
+    segment.bytes: 1073741824
+    
