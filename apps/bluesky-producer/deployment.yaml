@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: bluesky-producer
-  namespace: data-pipelines
+  namespace: bluesky-producer
   labels:
     app.kubernetes.io/name: bluesky-producer
 spec:
@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: producer
-          image: docker.io/dedyoc/bluesky-producer:latest 
+          image: dedyoc/bluesky-producer:latest
           imagePullPolicy: Always
           resources:
             requests:
@@ -25,4 +25,5 @@ spec:
               memory: 128Mi
             limits:
               cpu: 500m
+              # strict memory boundary to protect the 32gb host
               memory: 256Mi
