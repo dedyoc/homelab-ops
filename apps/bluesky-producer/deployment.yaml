@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bluesky-producer
+  namespace: data-pipelines
+  labels:
+    app.kubernetes.io/name: bluesky-producer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: bluesky-producer
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: bluesky-producer
+    spec:
+      containers:
+        - name: producer
+          image: docker.io/dedyoc/bluesky-producer:latest 
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
